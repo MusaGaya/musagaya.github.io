@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Musa Khalid Gaya — Frontend Developer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">MKG</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+      <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+      <li><a href="#certifications" onclick="closeMenu()">Certificates</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hello, I'm</p>
+      <h1 class="hero-name">Musa Khalid<br><span>Gaya</span></h1>
+      <p class="hero-title">Aspiring Frontend Developer</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-deco">
+      <div class="deco-circle"></div>
+      <div class="deco-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-label">01 — About</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>A developer who cares about the details.</h2>
+          <p>I'm a Computer Science student based in Abuja, Nigeria, with a growing passion for Frontend Development. I enjoy building web interfaces that are clean, intuitive, and purposeful — the kind of experiences that feel effortless to use.</p>
+          <p>I focus on writing structured, meaningful code and approach every project as an opportunity to learn something new and build something worth showing.</p>
+        </div>
+        <div class="about-facts">
+          <div class="fact">
+            <span class="fact-number">01</span>
+            <span class="fact-text">Based in Abuja, Nigeria</span>
+          </div>
+          <div class="fact">
+            <span class="fact-number">02</span>
+            <span class="fact-text">Frontend Development Enthusiast</span>
+          </div>
+          <div class="fact">
+            <span class="fact-number">03</span>
+            <span class="fact-text">Passionate about clean UI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-label">02 — Skills</div>
+      <h2>What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">&#60;/&#62;</div>
+          <h3>HTML5</h3>
+          <p>Semantic, structured, and accessible markup that forms the backbone of every project.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#123;&#125;</div>
+          <h3>CSS3</h3>
+          <p>Responsive layouts, custom styling, animations, and a keen eye for visual detail.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">JS</div>
+          <h3>JavaScript</h3>
+          <p>Beginner-level scripting to bring interactivity and logic to web pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-label">03 — Projects</div>
+      <h2>Things I've built</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-number">01</div>
+          <div class="project-info">
+            <h3>Portfolio Website</h3>
+            <p>This very site — designed and built from scratch using HTML, CSS, and JavaScript. Focused on clean layout, typography, and a premium feel.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </div>
+        <div class="project-card coming">
+          <div class="project-number">02</div>
+          <div class="project-info">
+            <h3>Coming Soon</h3>
+            <p>More projects in the works. Check back shortly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="certifications" id="certifications">
+    <div class="container">
+      <div class="section-label">04 — Certifications</div>
+      <h2>Courses & Certificates</h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-meta">
+            <span class="cert-platform">freeCodeCamp</span>
+            <span class="cert-year">2025</span>
+          </div>
+          <h3>Responsive Web Design</h3>
+        </div>
+        <div class="cert-card">
+          <div class="cert-meta">
+            <span class="cert-platform">Platform Name</span>
+            <span class="cert-year">2025</span>
+          </div>
+          <h3>Certificate Name</h3>
+        </div>
+        <div class="cert-card">
+          <div class="cert-meta">
+            <span class="cert-platform">Platform Name</span>
+            <span class="cert-year">2025</span>
+          </div>
+          <h3>Certificate Name</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-label">05 — Contact</div>
+      <div class="contact-inner">
+        <h2>Let's work together.</h2>
+        <p>I'm currently open to opportunities, collaborations, and interesting projects. Feel free to reach out.</p>
+        <a href="mailto:musakhalidgaya@gmail.com" class="btn-primary">Send Me an Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Musa Khalid Gaya. Built with HTML, CSS & JS.</p>
+      <div class="footer-links">
+        <a href="https://github.com/" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
