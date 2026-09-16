@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Opportunity Scoring — Musa Khalid Gaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --text: #111111;
+      --muted: #555555;
+      --accent: #1C3557;
+      --accent-light: #E8EEF4;
+      --border: #E0E0E0;
+      --lime: #2D6A4F;
+      --lime-light: #E8F5EF;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250,250,250,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+    }
+    .nav-brand { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .hero { background: var(--accent); color: white; padding: 5rem 2rem 4rem; text-align: center; }
+    .hero-tag { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.2; max-width: 800px; margin: 0 auto 1rem; }
+    .hero-meta { font-size: 0.875rem; opacity: 0.7; margin-top: 1.5rem; }
+    .main { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+    .abstract { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+    .abstract-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .abstract p { font-size: 0.95rem; color: var(--text); line-height: 1.8; }
+    .section { margin-bottom: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+    .section-number { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: 1.25rem; line-height: 1.2; }
+    h3 { font-size: 1rem; font-weight: 500; color: var(--text); margin: 1.5rem 0 0.5rem; }
+    p { margin-bottom: 1rem; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; text-align: center; }
+    .metric-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .metric-value { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); }
+    .metric-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .results-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .results-table th { background: var(--accent); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 500; font-size: 0.8rem; letter-spacing: 0.05em; }
+    .results-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+    .results-table tr:nth-child(even) td { background: var(--bg); }
+    .win { color: var(--lime); font-weight: 500; }
+    .feature-chart { margin: 1.5rem 0; }
+    .feature-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .feature-name { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--muted); min-width: 180px; }
+    .feature-bar-wrap { flex: 1; background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+    .feature-bar { height: 100%; background: var(--accent); border-radius: 4px; }
+    .feature-pct { font-size: 0.78rem; color: var(--muted); min-width: 40px; text-align: right; }
+    .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .action-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; border-top: 3px solid var(--accent); }
+    .action-card.p1 { border-top-color: #C0392B; }
+    .action-card.p2 { border-top-color: #E67E22; }
+    .action-card.p3 { border-top-color: #2D6A4F; }
+    .action-card.p4 { border-top-color: var(--border); }
+    .action-priority { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .action-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .action-code { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; background: var(--bg); padding: 0.2rem 0.5rem; border-radius: 4px; color: var(--accent); display: inline-block; margin-bottom: 0.5rem; }
+    .action-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .callout { background: var(--lime-light); border-left: 3px solid var(--lime); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.9rem; }
+    .callout-warn { background: #FEF3CD; border-left-color: #E67E22; }
+    .code-block { background: #1A1A2E; border-radius: 8px; padding: 1.25rem; margin: 1rem 0; overflow-x: auto; }
+    .code-block code { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #A8B5A0; line-height: 1.8; }
+    a { color: var(--accent); text-decoration: underline; }
+    footer { background: var(--accent); color: rgba(255,255,255,0.7); text-align: center; padding: 2.5rem 2rem; font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.9); }
+    @media (max-width: 600px) {
+      .metrics-grid, .action-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .feature-name { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Musa Khalid Gaya</span>
+  <ul class="nav-links">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#data">Data</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#recommendations">Recommendations</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">FlyRank ML Internship · Lane 2</div>
+  <h1>Content Opportunity Scoring:<br>Which Pages Should Be Reviewed First?</h1>
+  <div class="hero-meta">Musa Khalid Gaya &nbsp;·&nbsp; September 2026 &nbsp;·&nbsp; <a href="https://github.com/MusaGaya" style="color:rgba(255,255,255,0.8);">github.com/MusaGaya</a></div>
+</div>
+
+<div class="main">
+
+  <div class="abstract" id="abstract">
+    <div class="abstract-label">Abstract</div>
+    <p>Content teams reviewing thousands of pages face a prioritisation problem: which pages deserve attention first? This project builds a Content Opportunity Scoring model that ranks pages by their likelihood of being in decline, using observable search and content signals from a 22,301-row anonymised dataset. A Random Forest classifier trained on eight features — including impressions, CTR, content age and average position — was compared against a hand-written baseline rule using Precision@K on a client-grouped holdout split. The model achieved a Precision@50 of 0.480 versus the baseline's 0.300, a directional improvement suggesting that learned signal combinations can help prioritise content review queues more effectively than fixed rules. Results are observational and decision-support only — the model identifies pages sharing characteristics with currently declining pages, and does not predict future outcomes or guarantee that a content refresh will cause recovery.</p>
+  </div>
+
+  <div class="section" id="introduction">
+    <div class="section-number">01 — Introduction</div>
+    <h2>The Problem</h2>
+    <p>A content team managing thousands of pages cannot review everything. They need a principled way to decide where to spend their limited review capacity. Today, many teams use hand-written rules — flag pages that are old, flag pages with low CTR, flag pages that are declining — but these rules treat all signals equally and cannot learn from the data they sit on.</p>
+    <p>This project asks: <strong>can a learned model rank pages for content review more accurately than a fixed rule, using only observable search and content signals?</strong></p>
+    <p>The output is a ranked priority queue — a tool that helps a human reviewer decide which page to open first. Every recommendation requires human judgment before any action is taken.</p>
+  </div>
+
+  <div class="section" id="data">
+    <div class="section-number">02 — Data</div>
+    <h2>Data</h2>
+    <h3>Source</h3>
+    <p>The starter dataset ships with the FlyRank ML Internship starter repository: <code>data/raw/content_refresh_anonymized.csv</code>. It is a 30,000-row anonymised slice of real search and content performance data. All client identifiers, domains, URLs and raw queries have been pseudonymised or removed before release.</p>
+    <h3>What One Row Means</h3>
+    <p>One row = one content item (one page), with aggregated 90-day performance metrics. Multiple pages from the same pseudonymised client appear in the dataset.</p>
+    <h3>Key Statistics</h3>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Total Pages</div>
+        <div class="metric-value">22,301</div>
+        <div class="metric-sub">after dropping rows with missing features</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Declining Rate</div>
+        <div class="metric-value">54.2%</div>
+        <div class="metric-sub">pages with trend_direction == "down"</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Training Clients</div>
+        <div class="metric-value">25</div>
+        <div class="metric-sub">client-grouped holdout split</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Test Clients</div>
+        <div class="metric-value">7</div>
+        <div class="metric-sub">never seen during training</div>
+      </div>
+    </div>
+    <h3>What Was Excluded and Why</h3>
+    <p>Rows with missing values in any of the eight feature columns were dropped (30,000 → 22,301 rows). Product decision flags are not present in the dataset by design — they would create circular results if used as features. The trend_direction column was used only as the label source, never as a feature.</p>
+  </div>
+
+  <div class="section" id="methodology">
+    <div class="section-number">03 — Methodology</div>
+    <h2>Methodology</h2>
+    <h3>Label Definition</h3>
+    <p>The proxy label is <code>is_declining_label = (trend_direction == "down")</code>. This is a current-state proxy — it identifies pages currently in a declining trend, not a future-looking prediction. This is a known limitation discussed in the Limitations section.</p>
+    <h3>Features</h3>
+    <p>Eight observable signals, all knowable before any review decision is made:</p>
+    <div class="code-block"><code>impressions_90d &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# total search impressions, 90-day window<br>avg_position &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# average search ranking position<br>content_age_days &nbsp;&nbsp;&nbsp;# how old the page is<br>ctr &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# click-through rate<br>word_count &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# content length<br>days_since_last_update # staleness signal<br>sessions_90d &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# GA4 sessions in 90-day window<br>engagement_rate &nbsp;&nbsp;&nbsp;&nbsp;# session engagement metric</code></div>
+    <h3>Baseline Rule</h3>
+    <p>A weighted rule combining three normalised signals: staleness (40%), visibility (35%) and CTR gap (25%). This is the score the model must beat.</p>
+    <h3>Model</h3>
+    <p>Random Forest Classifier (100 trees, max depth 6, class_weight="balanced", random_state=42). Chosen because it handles non-linear signal combinations, produces continuous probabilities for ranking, and was the strongest performer in the starter pipeline benchmark.</p>
+    <h3>Validation Design</h3>
+    <p>Client-grouped holdout split: 80% of clients for training, 20% for testing. No client appears in both sets. This tests whether the model generalises to clients it has never seen — the honest real-world use case.</p>
+    <h3>Leakage Checks</h3>
+    <p>All eight features were confirmed knowable before any review decision is made. trend_direction and trend_pct were excluded from features. No product flags were used. No future-window data was used.</p>
+  </div>
+
+  <div class="section" id="results">
+    <div class="section-number">04 — Results</div>
+    <h2>Results</h2>
+    <h3>Model vs Baseline — Same Split, Same Metric</h3>
+    <table class="results-table">
+      <thead><tr><th>Method</th><th>Precision@20</th><th>Precision@50</th></tr></thead>
+      <tbody>
+        <tr><td>Baseline Rule (Week 4)</td><td>0.200</td><td>0.300</td></tr>
+        <tr><td><strong>Random Forest</strong></td><td class="win">0.400</td><td class="win">0.480</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>What this means:</strong> Of the top 50 pages the baseline flags for review, about 15 are actually declining. Of the top 50 pages the Random Forest flags, about 24 are actually declining. The model is directionally better at identifying the right pages to review first.
+    </div>
+    <h3>Feature Importances</h3>
+    <p>The model leans most heavily on impressions, position and content age — the same signals a human analyst would choose, but weighted non-linearly per page.</p>
+    <div class="feature-chart">
+      <div class="feature-row"><span class="feature-name">impressions_90d</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:100%"></div></div><span class="feature-pct">36.9%</span></div>
+      <div class="feature-row"><span class="feature-name">avg_position</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:41%"></div></div><span class="feature-pct">15.2%</span></div>
+      <div class="feature-row"><span class="feature-name">content_age_days</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:41%"></div></div><span class="feature-pct">15.2%</span></div>
+      <div class="feature-row"><span class="feature-name">ctr</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:25%"></div></div><span class="feature-pct">9.4%</span></div>
+      <div class="feature-row"><span class="feature-name">word_count</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:18%"></div></div><span class="feature-pct">6.8%</span></div>
+      <div class="feature-row"><span class="feature-name">days_since_last_update</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:18%"></div></div><span class="feature-pct">6.7%</span></div>
+      <div class="feature-row"><span class="feature-name">sessions_90d</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:17%"></div></div><span class="feature-pct">6.4%</span></div>
+      <div class="feature-row"><span class="feature-name">engagement_rate</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:10%"></div></div><span class="feature-pct">3.5%</span></div>
+    </div>
+  </div>
+
+  <div class="section" id="limitations">
+    <div class="section-number">05 — Limitations</div>
+    <h2>Limitations & Honest Framing</h2>
+    <div class="callout callout-warn"><strong>These results are directional and decision-support only.</strong> The model identifies pages that share characteristics with currently declining pages. It does not predict future traffic, and it cannot prove that a content refresh will cause recovery.</div>
+    <h3>Proxy Label Weakness</h3>
+    <p>The label is calculated from the same 90-day window as the features. The model is identifying current state, not predicting future outcomes. A stronger version would use a prior feature window to predict a future target window.</p>
+    <h3>Dataset Scope</h3>
+    <p>Results come from a 22,301-row anonymised starter slice with 32 clients. They may not generalise to the full 79-million-row warehouse or to client types not represented in this slice.</p>
+    <h3>What This Cannot Claim</h3>
+    <p>This work does not identify Google algorithm factors. It does not prove that refreshing a flagged page will cause it to recover. It does not make claims about any specific client, domain or URL.</p>
+  </div>
+
+  <div class="section" id="recommendations">
+    <div class="section-number">06 — Ranked Recommendations</div>
+    <h2>Content Action Playbook</h2>
+    <p>Pages are assigned one of four action labels. Start at rank 1 and work down until review capacity is exhausted. The score is a priority signal, not a verdict.</p>
+    <div class="action-grid">
+      <div class="action-card p1">
+        <div class="action-priority">Priority 1</div>
+        <div class="action-name">Review Both</div>
+        <div class="action-code">stale_and_low_ctr</div>
+        <div class="action-desc">Page is 180+ days old, still visible and has low CTR. Review content AND metadata.</div>
+      </div>
+      <div class="action-card p2">
+        <div class="action-priority">Priority 2</div>
+        <div class="action-name">Review Content</div>
+        <div class="action-code">stale_visible_page</div>
+        <div class="action-desc">Page is 180+ days old and still receives 100+ impressions. Update the content.</div>
+      </div>
+      <div class="action-card p3">
+        <div class="action-priority">Priority 3</div>
+        <div class="action-name">Review Metadata</div>
+        <div class="action-code">low_ctr_visible_page</div>
+        <div class="action-desc">Page has 500+ impressions but CTR below 0.5%. Rewrite title or meta description.</div>
+      </div>
+      <div class="action-card p4">
+        <div class="action-priority">Priority 4</div>
+        <div class="action-name">Monitor</div>
+        <div class="action-code">monitor</div>
+        <div class="action-desc">Page does not meet any review threshold. Check again next cycle.</div>
+      </div>
+    </div>
+    <h3>What Should Never Be Automated</h3>
+    <p>Content deletion, redirects, canonical changes, or publishing rewritten content without human approval. This queue is a starting point for human review, not an automated publishing pipeline.</p>
+  </div>
+
+  <div class="section" id="reproducibility">
+    <div class="section-number">07 — Reproducibility</div>
+    <h2>Reproducibility</h2>
+    <p>All notebooks live in <code>work/notebooks/</code> in the project repository. Running each notebook top to bottom reproduces every number in this paper.</p>
+    <table class="results-table">
+      <thead><tr><th>Notebook</th><th>What It Does</th></tr></thead>
+      <tbody>
+        <tr><td>w01_research_question.ipynb</td><td>Lane selection and framing</td></tr>
+        <tr><td>w02_ml_task_framing.ipynb</td><td>Task type, target, success metric</td></tr>
+        <tr><td>w03_data_contract.ipynb</td><td>Data contract and feature verification</td></tr>
+        <tr><td>w04_baseline_score.ipynb</td><td>Signal checks and baseline rule</td></tr>
+        <tr><td>w05_model.ipynb</td><td>Random Forest training and comparison</td></tr>
+        <tr><td>w06_validation_audit.ipynb</td><td>Honest split, leakage audit, claim rewrite</td></tr>
+        <tr><td>w07_action_playbook.ipynb</td><td>Action playbook and exports</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Repository:</strong> <a href="https://github.com/MusaGaya" target="_blank">github.com/MusaGaya</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p style="margin-bottom:0.5rem;">Built on the <a href="https://flyrank.ai" target="_blank">FlyRank ML Internship dataset</a> — real anonymised search intelligence data provided by FlyRank AI.</p>
+  <p style="margin-bottom:0.5rem;">Musa Khalid Gaya &nbsp;·&nbsp; September 2026 &nbsp;·&nbsp; <a href="https://musagaya.github.io" target="_blank">musagaya.github.io</a></p>
+  <p style="font-size:0.75rem; opacity:0.5; margin-top:0.5rem;">Results are directional and decision-support only. No client names, domains, URLs or private queries appear in this paper.</p>
+</footer>
+
+</body>
+</html>
